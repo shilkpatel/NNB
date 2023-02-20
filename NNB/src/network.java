@@ -111,6 +111,13 @@ public class network
 
             }
 
+            for(int i=0;i< int_struct.length;i++)
+            {
+                String slayer=reader.nextLine();
+                String[] string_arr=slayer.split(",");
+
+            }
+
         }
         catch (IOException e)
         {
