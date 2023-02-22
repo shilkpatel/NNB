@@ -9,7 +9,13 @@ public class Learning
     public static network delta(network a,vector[][] dataset)
     {
         network delta_v = new network(a.structure);
+        // I have to set all values to 0
+        
+
+
+
         // for every element in the dataset
+        //adjusting weights
         for(int i=0;i< dataset.length;i++)
         {
             // for every layer in the network
@@ -39,7 +45,8 @@ public class Learning
 
                         double nudge = gradient*learning_rate*-1;
                         //System.out.println(nudge);
-                        delta_v.net[j].layers[k].v[l] = nudge;
+                        //This line --------------------------------------------------------------------------
+                        delta_v.net[j].layers[k].v[l] += nudge;
                         current_vector.seti(l,inital_x);
 
                     }
@@ -47,6 +54,33 @@ public class Learning
 
             }
         }
+
+        //adjusting bias
+        for(int i=0;i< dataset.length;i++)
+        {
+            for (int j=0;j<a.net.length;j++)
+            {
+                layer current_layer = a.net[j];
+                vector current_bias = a.net[j].bias;
+                for(int k=0; k<current_layer.bias.v.length;k++)
+                {
+                    vector network_output = a.out(dataset[i][0]);
+                    double initial_mse = network.MSE(network_output,dataset[i][1]);
+                    double inital_x =current_bias.geti(k);
+                    current_bias.seti(k,inital_x+h);
+
+                    vector augmented_output = a.out(dataset[i][0]);
+                    double augmented_mse = network.MSE(augmented_output,dataset[i][1]);
+
+                    double gradient = (augmented_mse-initial_mse)/h;
+                    double nudge = gradient*learning_rate*-1;
+                    delta_v.net[j].bias.v[k] += nudge;
+
+                }
+            }
+        }
+
+
         return delta_v;
         // we input a vector and then test to see how much it changes when we change each of the weights
         // this is then the gradient and then we times it by the learning rate

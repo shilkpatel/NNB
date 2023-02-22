@@ -63,6 +63,8 @@ public class network
         }
     }
 
+
+    //bias save done
     public void save_network(String filename)
     {
 
@@ -76,7 +78,7 @@ public class network
         snetwork+="\n";
         for(layer a:net)
         {
-            snetwork+=a.serialize()+"\n"+a.a+"\n";
+            snetwork+=a.serialize()+"\n"+a.serialize_bias()+"\n"+a.a+"\n";
 
         }
         try {
@@ -105,7 +107,7 @@ public class network
         }
 
     }
-
+//bias load done
     public void load_network(String file)
     {
         try
@@ -139,8 +141,14 @@ public class network
                 String slayer=reader.nextLine();
 
                 String[] string_arr=slayer.split(",");// splits on comma
+                String[] string_bias = reader.nextLine().split(",");
                 char activation = reader.nextLine().charAt(0);
                 layer current_layer = net[i];
+
+                for(int k=0;k<current_layer.bias.v.length;k++)
+                {
+                    current_layer.bias.v[k]= Double.parseDouble(string_bias[k]);
+                }
                 for(int j=0;j<int_struct[i][1];j++)//outputs
                 {
                     vector current_vector=current_layer.layers[j];

@@ -3,8 +3,7 @@ public class layer
 {
     vector[] layers;
     char a;
-    
-
+    vector bias;
 
     public layer(int num_inputs,int num_output, char activation)
     {
@@ -14,6 +13,8 @@ public class layer
             layers[i] = new vector(num_inputs);
         }
         a=activation;
+        bias= new vector(layers.length);// the length of the bias vector is the same as the output
+        // this is instantiated with random values
     }
     public vector compute(vector input)
     {
@@ -21,13 +22,13 @@ public class layer
         double[] ans = new double[lenlayers];
         for(int i =0;i<lenlayers;i++)
         {
-            ans[i]=relu(vector.dot(input,layers[i]));
+            ans[i]=relu(vector.dot(input,layers[i])+bias.v[i]);//bias added
         }
         return new vector(ans);
     }
     public static double relu(double a)
     {
-        if(a>0)
+        if(a>=0)
         {
             return a;
         }
@@ -58,5 +59,15 @@ public class layer
         }
         return  a.substring(0, a.length() - 1);
 
+    }
+
+    public String serialize_bias()
+    {
+        String sbias="";
+        for(double i: bias.v)
+        {
+            sbias+=i+",";
+        }
+        return sbias.substring(0,sbias.length()-1);
     }
 }
