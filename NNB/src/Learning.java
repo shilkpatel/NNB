@@ -2,8 +2,8 @@ import java.util.Arrays;
 
 public class Learning
 {
-    static double learning_rate = 0.1;
-    static double h = 0.1;
+    static double learning_rate = 0.01;
+    static double h = 0.001;
     // data set is [data points] [inputs] [expected outputs]
     // this outputs the nudges to all the vectors in the form of a network
     public static network delta(network a,vector[][] dataset)
@@ -28,6 +28,7 @@ public class Learning
                         // do (f(x+h) - f(x))/h
                         vector network_output = a.out(dataset[i][0]);
                         double initial_mse = network.MSE(network_output,dataset[i][1]);
+                        //System.out.println(initial_mse);
                         double inital_x =current_vector.geti(l);
                         current_vector.seti(l,inital_x+h);
 
@@ -35,7 +36,9 @@ public class Learning
                         double augmented_mse = network.MSE(augmented_output,dataset[i][1]);
 
                         double gradient = (augmented_mse-initial_mse)/h;
+
                         double nudge = gradient*learning_rate*-1;
+                        //System.out.println(nudge);
                         delta_v.net[j].layers[k].v[l] = nudge;
                         current_vector.seti(l,inital_x);
 
@@ -48,6 +51,8 @@ public class Learning
         // we input a vector and then test to see how much it changes when we change each of the weights
         // this is then the gradient and then we times it by the learning rate
     }
+
+
 
 }
 

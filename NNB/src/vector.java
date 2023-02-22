@@ -41,4 +41,13 @@ public class vector
         }
         return ans;
     }
+
+    public static vector add(vector a,vector b)
+    {
+        for(int i =0;i<a.v.length;i++)
+        {
+            a.v[i]+=b.v[i];
+        }
+        return a;
+    }
 }

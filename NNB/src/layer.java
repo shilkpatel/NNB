@@ -3,6 +3,8 @@ public class layer
 {
     vector[] layers;
     char a;
+    
+
 
     public layer(int num_inputs,int num_output, char activation)
     {
