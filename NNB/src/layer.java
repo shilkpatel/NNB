@@ -70,4 +70,11 @@ public class layer
         }
         return sbias.substring(0,sbias.length()-1);
     }
+    public void set_zero()
+    {
+        for (vector i:layers)
+        {
+            i.set_null();
+        }
+    }
 }

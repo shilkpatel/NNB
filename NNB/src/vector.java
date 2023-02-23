@@ -50,4 +50,10 @@ public class vector
         }
         return a;
     }
+
+    public void set_null()
+    {
+        v= new double[v.length];
+    }
 }
+

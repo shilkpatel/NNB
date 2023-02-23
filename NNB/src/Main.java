@@ -8,13 +8,8 @@ public class Main {
     public static void main(String[] args) {
         network xor = new network(new int[][]{{2,2},{2,1}});
         xor.save_network("network.txt");
-
 //0.11673482140340918
 //0.11673482140340918
-
-
-
-
     }
 
     public static void training(network x)

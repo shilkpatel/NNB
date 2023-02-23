@@ -10,7 +10,7 @@ public class Learning
     {
         network delta_v = new network(a.structure);
         // I have to set all values to 0
-        
+        delta_v.wipe();
 
 
 
@@ -48,10 +48,8 @@ public class Learning
                         //This line --------------------------------------------------------------------------
                         delta_v.net[j].layers[k].v[l] += nudge;
                         current_vector.seti(l,inital_x);
-
                     }
                 }
-
             }
         }
 
@@ -75,6 +73,7 @@ public class Learning
                     double gradient = (augmented_mse-initial_mse)/h;
                     double nudge = gradient*learning_rate*-1;
                     delta_v.net[j].bias.v[k] += nudge;
+                    current_bias.seti(k,inital_x);
 
                 }
             }

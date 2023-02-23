@@ -193,6 +193,13 @@ public class network
         nudge.save_network("nudges.txt");
         save_network("network.txt");
     }
+    public void wipe()
+    {
+        for(layer i:net)
+        {
+            i.set_zero();
+        }
+    }
 
 
 
