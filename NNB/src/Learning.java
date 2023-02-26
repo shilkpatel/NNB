@@ -11,9 +11,6 @@ public class Learning
         network delta_v = new network(a.structure);
         // I have to set all values to 0
         delta_v.wipe();
-
-
-
         // for every element in the dataset
         //adjusting weights
         for(int i=0;i< dataset.length;i++)

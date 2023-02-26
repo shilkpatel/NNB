@@ -3,6 +3,11 @@ import java.io.IOException;
 import java.io.FileWriter;
 import java.util.Scanner;
 import java.util.Arrays;
+/*
+for activation functions
+
+
+*/
 public class network
 {
     public layer[] net;
@@ -16,6 +21,16 @@ public class network
         for(int i =0;i<nodes.length;i++)
         {
             net[i]= new layer(nodes[i][0],nodes[i][1],'a');
+        }
+    }
+
+    public network(int[][] nodes,char[] activation)
+    {
+        net = new layer[nodes.length];
+        structure=nodes;
+        for(int i=0;i< nodes.length;i++)
+        {
+            net[i]= new layer(nodes[i][0],nodes[i][1],activation[i]);
         }
     }
 
