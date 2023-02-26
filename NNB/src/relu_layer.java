@@ -9,7 +9,7 @@ public class relu_layer extends layer{
         double[] ans = new double[lenlayers];
         for(int i =0;i<lenlayers;i++)
         {
-            ans[i]=relu(vector.dot(input,layers[i]));
+            ans[i]=relu(vector.dot(input,layers[i])+bias.v[i]);
         }
         return new vector(ans);
     }
