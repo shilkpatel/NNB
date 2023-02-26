@@ -3,17 +3,33 @@ import org.json.simple.JSONObject;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
     public static void main(String[] args) {
-        network xor = new network(new int[][]{{2,2},{2,1}},new char[]{'r','s'});
-        xor.save_network("network.txt");
+        network xor = new network(new int[][]{{2,6},{6,1}},new char[]{'s','s'});
+        //network xor = new network();
+        //xor.load_network("network.txt");
+        test(xor);
+        for(int i=0;i<10000;i++)
+        {
+            //System.out.println(i);
+            training(xor);
+        }
+
+
+
+        test(xor);
+        //xor.save_network("network.txt");
+
 //0.11673482140340918
 //0.11673482140340918
     }
 
     public static void training(network x)
     {
+        Random rand = new Random();
         vector a = new vector(new double[]{0,0});
         vector a_ans = new vector(new double[]{0});
         vector b = new vector(new double[]{1,0});
@@ -22,7 +38,26 @@ public class Main {
         vector c_ans = new vector(new double[]{1});
         vector d = new vector(new double[]{1,1});
         vector d_ans = new vector(new double[]{0});
-        vector[][] data = new vector[][]{{a,a_ans},{b,b_ans},{c,c_ans},{d,d_ans}};
+        vector[][] data  = new vector[4][];
+        for(int i=0;i<4;i++)
+        {
+            int randomNum = ThreadLocalRandom.current().nextInt(0, 4);
+            switch (randomNum)
+            {
+                case 0:
+                    data[i]=new vector[]{a,a_ans};
+                    break;
+                case 1:
+                    data[i]=new vector[]{b,b_ans};
+                    break;
+                case 2:
+                    data[i]=new vector[]{c,c_ans};
+                    break;
+                case 3:
+                    data[i]=new vector[]{d,d_ans};
+
+            }
+        }
         x.epoch(data);
 
 

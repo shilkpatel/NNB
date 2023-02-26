@@ -44,7 +44,7 @@ public class layer
     }
     public static double sigmoid(double a)
     {
-        return 1/(1-Math.pow(Math.E,-1));
+        return 1/(1+Math.pow(Math.E,-a));
     }
 
     public String serialize()

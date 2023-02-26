@@ -1,3 +1,5 @@
+import com.sun.tools.jconsole.JConsoleContext;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
@@ -56,12 +58,12 @@ public class network
     public network(){}
     public vector out(vector input)
     {
-        vector output= new vector(3);
+        vector output= input;
         int num_layer= net.length;
 
         for(int i=0;i<num_layer;i++)
         {
-             output =new vector(net[i].compute(input));
+             output =new vector(net[i].compute(output));
         }
         return output;
     }
@@ -113,8 +115,6 @@ public class network
             File saved_network = new File(filename);
             if (saved_network.createNewFile()) {
                 System.out.println("File created: " + saved_network.getName());
-            } else {
-                System.out.println("File already exists.");
             }
 
         }
@@ -162,7 +162,7 @@ public class network
             //int struct holds the structure of the network in the data type which can be passed in the class
             // this gives the structure of the network but the weights are populated by random values
             network_construct(int_struct);
-
+            System.out.println(Arrays.deepToString(int_struct));
             for(int i=0;i< int_struct.length;i++)
             {
                 // reads the next layer from the file
@@ -171,12 +171,25 @@ public class network
                 String[] string_arr=slayer.split(",");// splits on comma
                 String[] string_bias = reader.nextLine().split(",");
                 char activation = reader.nextLine().charAt(0);
+                if(activation=='r')
+                {
+                    net[i]= new relu_layer(int_struct[i][0],int_struct[i][1],activation);
+                }
+                else if(activation=='s')
+                {
+                    net[i]= new sigmoid_layer(int_struct[i][0],int_struct[i][1],activation);
+                }
+                else if(activation=='t')
+                {
+                    net[i]= new step_layer(int_struct[i][0],int_struct[i][1],activation);
+                }
                 layer current_layer = net[i];
-
+//  -------------------------------------------------------------------------
                 for(int k=0;k<current_layer.bias.v.length;k++)
                 {
                     current_layer.bias.v[k]= Double.parseDouble(string_bias[k]);
                 }
+                //---------------------------------------------------------------
                 for(int j=0;j<int_struct[i][1];j++)//outputs
                 {
                     vector current_vector=current_layer.layers[j];
@@ -184,6 +197,8 @@ public class network
                     {
                         // this is done so each vector in each layer is done
                         int index = (j*int_struct[i][0]) + i;//current index in serialized network
+                        System.out.println(index);
+                        //System.out.println(Arrays.toString(string_arr));
                         current_vector.v[k]=Double.parseDouble(string_arr[index]);
                     }
                 }

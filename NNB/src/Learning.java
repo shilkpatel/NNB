@@ -2,8 +2,8 @@ import java.util.Arrays;
 
 public class Learning
 {
-    static double learning_rate = 0.01;
-    static double h = 0.001;
+    static double learning_rate = 0.05;
+    static double h = 0.00001;
     // data set is [data points] [inputs] [expected outputs]
     // this outputs the nudges to all the vectors in the form of a network
     public static network delta(network a,vector[][] dataset)
