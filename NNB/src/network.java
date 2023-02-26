@@ -5,8 +5,9 @@ import java.util.Scanner;
 import java.util.Arrays;
 /*
 for activation functions
-
-
+"r" - relu
+"s" - sigmoid
+"t" - step
 */
 public class network
 {
@@ -30,7 +31,19 @@ public class network
         structure=nodes;
         for(int i=0;i< nodes.length;i++)
         {
-            net[i]= new layer(nodes[i][0],nodes[i][1],activation[i]);
+            if(activation[i]=='r')
+            {
+                net[i]= new relu_layer(nodes[i][0],nodes[i][1],activation[i]);
+            }
+            else if(activation[i]=='s')
+            {
+                net[i]= new sigmoid_layer(nodes[i][0],nodes[i][1],activation[i]);
+            }
+            else if(activation[i]=='t')
+            {
+                net[i]= new step_layer(nodes[i][0],nodes[i][1],activation[i]);
+            }
+
         }
     }
 
