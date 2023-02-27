@@ -10,18 +10,26 @@ public class Main {
     public static void main(String[] args) {
         network xor = new network(new int[][]{{2,6},{6,1}},new char[]{'s','s'});
         //network xor = new network();
-        //xor.load_network("network.txt");
+        xor.load_network("network.txt");
+        /*
         test(xor);
         for(int i=0;i<100000;i++)
         {
             //System.out.println(i);
             training(xor);
         }
+        */
+        System.out.println(xor.net[0].layers.length);//outputs of first layer
+        System.out.println(xor.net[0].layers[0].v.length);//inputs of first layer
+
+        System.out.println(xor.net[1].layers.length);//outputs of second layer
+        System.out.println(xor.net[1].layers[0].v.length);//inputs of second layer
+
 
 
 
         test(xor);
-        //xor.save_network("network.txt");
+        xor.save_network("test.txt");
 
 //0.11673482140340918
 //0.11673482140340918

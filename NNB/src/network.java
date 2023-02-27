@@ -162,7 +162,7 @@ public class network
             //int struct holds the structure of the network in the data type which can be passed in the class
             // this gives the structure of the network but the weights are populated by random values
             network_construct(int_struct);
-            System.out.println(Arrays.deepToString(int_struct));
+
             for(int i=0;i< int_struct.length;i++)
             {
                 // reads the next layer from the file
@@ -190,18 +190,7 @@ public class network
                     current_layer.bias.v[k]= Double.parseDouble(string_bias[k]);
                 }
                 //---------------------------------------------------------------
-                for(int j=0;j<int_struct[i][1];j++)//outputs
-                {
-                    vector current_vector=current_layer.layers[j];
-                    for(int k=0;k< int_struct[i][0];k++)//inputs
-                    {
-                        // this is done so each vector in each layer is done
-                        int index = (j*int_struct[i][0]) + i;//current index in serialized network
-                        System.out.println(index);
-                        //System.out.println(Arrays.toString(string_arr));
-                        current_vector.v[k]=Double.parseDouble(string_arr[index]);
-                    }
-                }
+                net[i].layers = deserialize(string_arr,int_struct[i]);
 
 
             }
@@ -242,6 +231,27 @@ public class network
         {
             i.set_zero();
         }
+    }
+
+
+    public static vector[] deserialize(String[] sarr,int[] size)
+    {
+        // this should give us the vector for a layer
+        // size[inputs,outputs]
+
+        vector[] lay = new vector[size[1]];//set the size of the vector to the number of outputs
+        for (int i = 0; i < size[1] ; i++) // for each output
+        {
+            double[] darr = new double[size[0]];// set the size to the number of inputs
+
+            for(int j=0;j<size[0];j++)
+            {
+                int index=(i*size[0])+j;
+                darr[j]=Double.parseDouble(sarr[index]);
+            }
+            lay[i]= new vector(darr);
+        }
+        return lay;
     }
 
 
